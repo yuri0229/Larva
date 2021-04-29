@@ -1,17 +1,17 @@
 package http
 
 import (
-	"gf/api"
-	"gf/internal/conf"
+	xhttp "gf/app/api/http"
+	"gf/app/api/internal/conf"
+	"gf/app/api/internal/service"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
 
-func Init(c *conf.Config, serv *api.HttpServ) (engine *gin.Engine) {
+func Init(c *conf.Config, s *service.Service) (engine *gin.Engine) {
 	engine = gin.Default()
 	engine.Use(cors())
-	engine.GET("/", serv.Hello)
-	engine.GET("/grpc", serv.Grpc)
+	xhttp.RouteRetister(engine, s)
 	engine.Run(c.Http.Addr)
 	return
 }

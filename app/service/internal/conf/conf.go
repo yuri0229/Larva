@@ -19,6 +19,6 @@ var (
 )
 
 func Init() (err error) {
-	_, err = toml.DecodeFile("conf.toml", &Conf)
+	_, err = toml.DecodeFile("conf_service.toml", &Conf)
 	return
 }

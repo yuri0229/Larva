@@ -1,13 +1,13 @@
 package dao
 
 import (
-	"gf/internal/conf"
+	"gf/app/service/internal/conf"
 	"gorm.io/driver/mysql"
 	"gorm.io/gorm"
 )
 
 type Dao struct {
-	Db 	*gorm.DB
+	Db   *gorm.DB
 }
 
 func New(c *conf.Config) (d *Dao) {

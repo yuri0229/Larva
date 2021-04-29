@@ -2,10 +2,10 @@ package service
 
 import (
 	"context"
-	"gf/internal/conf"
-	"gf/internal/dao"
-	"gf/internal/model"
-	"gorm.io/gorm"
+	"gf/app/api/grpc"
+	"gf/app/api/internal/conf"
+	"gf/app/api/internal/dao"
+	"gf/app/api/internal/model"
 )
 
 type Service struct {
@@ -20,11 +20,13 @@ func New(c *conf.Config) (s *Service) {
 }
 
 func (s *Service) ArticleDetail(ctx context.Context, id int64) (res *model.Article, err error) {
-	res = &model.Article{}
-	db := s.dao.Db
-	if err = db.Table("Article").Where("id=?", id).First(res).Error; err == gorm.ErrRecordNotFound {
-		res = nil
-		err = nil
+	resp, err := s.dao.Grpc.Detail(ctx, &grpc.Req{Id: id})
+	if err != nil {
+		return
+	}
+	res = &model.Article{
+		Id: resp.Id,
+		Title: resp.Title,
 	}
 	return
 }

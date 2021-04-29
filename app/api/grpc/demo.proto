@@ -1,6 +1,6 @@
 syntax = "proto3";
-package api;
-option go_package = ".;api";
+package grpc;
+option go_package = ".;grpc";
 
 service DemoGrpc {
     rpc Detail(Req) returns (ItemResp);

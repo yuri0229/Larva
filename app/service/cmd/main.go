@@ -1,16 +1,16 @@
 package main
 
 import (
-	"gf/api"
-	"gf/internal/conf"
-	"gf/internal/service"
-	"gf/internal/server/grpc"
-	"gf/internal/server/http"
 	"log"
 	"os"
 	"os/signal"
 	"syscall"
 	"time"
+
+	pb "gf/app/service/grpc"
+	"gf/app/service/internal/conf"
+	"gf/app/service/internal/server/grpc"
+	"gf/app/service/internal/service"
 )
 
 func main() {
@@ -18,13 +18,9 @@ func main() {
 		panic(err)
 	}
 	serv := service.New(conf.Conf)
-	httpServ := api.NewHttp(conf.Conf, serv)
+	rpcServ := pb.New(serv)
 	go func() {
-		http.Init(conf.Conf, httpServ)
-	}()
-	grpcServ := api.NewGrpc(serv)
-	go func() {
-		grpc.Init(conf.Conf, grpcServ)
+		grpc.Init(conf.Conf, rpcServ)
 	}()
 
 	c := make(chan os.Signal, 1)

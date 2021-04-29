@@ -1,0 +1,16 @@
+syntax = "proto3";
+package grpc;
+option go_package = ".;grpc";
+
+service DemoGrpc {
+    rpc Detail(Req) returns (ItemResp);
+}
+
+message Req {
+    int64 id = 1;
+}
+
+message ItemResp {
+    int64 id = 1;
+    string Title = 2;
+}
