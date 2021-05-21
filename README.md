@@ -23,16 +23,18 @@ cd app/api/cmd
 go run main.go
 </pre>
 
-http://127.0.0.1:9800/detail?id=1
+http://127.0.0.1:9800/detail?id=1&timestamp=1619768437&sign=847430163260510a07e59e9ce288efac
 
 - 测试表数据
 
 <pre>
+CREATE DATABASE demo DEFAULT CHARACTER SET utf8mb4;
+
 CREATE TABLE 'article' (
  'id' int(10) unsigned NOT NULL AUTO_INCREMENT,
  'title' varchar(30) NOT NULL DEFAULT '',
  PRIMARY KEY ('id')
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 
 INSERT INTO 'article' ('id', 'title') VALUES

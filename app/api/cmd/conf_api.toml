@@ -3,6 +3,7 @@ addr = ":9801"
 
 [http]
 addr = ":9800"
+secret = "cxbwychbthy5ts33rab4bax5b65lyh30"
 
 [db]
 addr = "127.0.0.1:3306"

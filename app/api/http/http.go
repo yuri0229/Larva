@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+	"gf/pkg/verify"
 	"net/http"
 	"strconv"
 
@@ -29,7 +30,7 @@ func json(c *gin.Context, data interface{}, err error) {
 }
 
 func hello(c *gin.Context) {
-	res := map[string]string{"sya":"hello"}
+	res := map[string]string{"say":"hello"}
 	json(c, res, nil)
 }
 
@@ -49,6 +50,8 @@ func detail(c *gin.Context) {
 
 func RouteRetister(e *gin.Engine, s *service.Service){
 	DemoServ = s
+	conf := &verify.Conf{s.Conf.Http.Secret}
+	v := verify.New(conf)
 	e.GET("/", hello)
-	e.GET("/detail", detail)
+	e.GET("/detail", v.Verify, detail)
 }

@@ -8,6 +8,7 @@ type Config struct {
 	}
 	Http struct{
 		Addr 	string
+		Secret 	string
 	}
 	Db struct{
 		Dsn 	string

@@ -9,11 +9,13 @@ import (
 )
 
 type Service struct {
+	Conf *conf.Config
 	dao *dao.Dao
 }
 
 func New(c *conf.Config) (s *Service) {
 	s = &Service{
+		Conf: c,
 		dao: dao.New(c),
 	}
 	return
