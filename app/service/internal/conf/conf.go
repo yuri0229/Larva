@@ -1,6 +1,9 @@
 package conf
 
-import "github.com/BurntSushi/toml"
+import (
+	"gf/pkg/log"
+	"github.com/BurntSushi/toml"
+)
 
 type Config struct {
 	Rpc struct{
@@ -12,6 +15,7 @@ type Config struct {
 	Db struct{
 		Dsn 	string
 	}
+	Log *log.Config
 }
 
 var (

@@ -2,6 +2,7 @@ package http
 
 import (
 	"context"
+	"gf/pkg/log"
 	"gf/pkg/verify"
 	"net/http"
 	"strconv"
@@ -37,11 +38,13 @@ func hello(c *gin.Context) {
 func detail(c *gin.Context) {
 	id, err := strconv.ParseInt(c.Query("id"), 10, 64)
 	if err != nil {
+		log.Error("%v", err)
 		json(c, nil, err)
 		return
 	}
 	res, err := DemoServ.ArticleDetail(c, id)
 	if err != nil {
+		log.Error("%v", err)
 		json(c, nil, err)
 		return
 	}

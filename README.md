@@ -72,6 +72,10 @@ INSERT INTO 'article' ('id', 'title') VALUES
 </details>
 
 ## 更新记录
+2021.5.25
+>- 新增日志基础库 pkg/log
+>- 新增签名验证基础库 pkg/verify
+
 2021.4.29
 >- 在http和grpc接口新增定义了interface，业务逻辑(service)负责实现这个接口。
 >- grpc客户端从http移动到了dao。

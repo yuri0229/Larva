@@ -4,6 +4,7 @@ import (
 	"context"
 	"gf/app/service/internal/model"
 	"gf/app/service/internal/service"
+	"gf/pkg/log"
 )
 
 type demoService interface {
@@ -23,6 +24,7 @@ func New(s *service.Service) (serv *GrpcServ) {
 func (r *GrpcServ) Detail(c context.Context, req *Req) (res *ItemResp, err error) {
 	item, err := DemoService.ArticleDetail(c, req.Id)
 	if err != nil {
+		log.Error("%v", err)
 		return
 	}
 	if item != nil {

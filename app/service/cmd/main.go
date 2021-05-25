@@ -1,7 +1,6 @@
 package main
 
 import (
-	"log"
 	"os"
 	"os/signal"
 	"syscall"
@@ -11,12 +10,14 @@ import (
 	"gf/app/service/internal/conf"
 	"gf/app/service/internal/server/grpc"
 	"gf/app/service/internal/service"
+	"gf/pkg/log"
 )
 
 func main() {
 	if err := conf.Init(); err != nil {
 		panic(err)
 	}
+	log.Init(conf.Conf.Log)
 	serv := service.New(conf.Conf)
 	rpcServ := pb.New(serv)
 	go func() {
@@ -27,10 +28,10 @@ func main() {
 	signal.Notify(c, syscall.SIGHUP, syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT)
 	for {
 		s := <-c
-		log.Println("get a signal %s", s.String())
+		log.Info("get a signal %s", s.String())
 		switch s {
 		case syscall.SIGQUIT, syscall.SIGTERM, syscall.SIGINT:
-			log.Println("exit")
+			log.Info("exit")
 			time.Sleep(time.Second)
 			return
 		case syscall.SIGHUP:
