@@ -78,7 +78,7 @@ func (f *FileWriter) Close() {
 
 /**
  * gorouting
- * 先将内容暂存到buffer，再定时批量写文件。closed用来保证退出前buffer和channel内容已全部写入。
+ * 先将内容暂存到buffer，再定时批量写文件。closed为关闭信号，wg用来保证退出前buffer和channel内容已全部写入。
  */
 func (f *FileWriter) worker() {
 	tbuf := &bytes.Buffer{}

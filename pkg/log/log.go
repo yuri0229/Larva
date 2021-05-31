@@ -44,6 +44,12 @@ func Init(conf *Config) {
 	}
 }
 
+func Close() {
+	for idx, _ := range handler.fs {
+		handler.fs[idx].Close()
+	}
+}
+
 func (h *LogHandler) format(text string) string {
 	longTime := time.Now().Format("2006-01-02 15:04:05.000")
 	_, file, line, ok := runtime.Caller(3)

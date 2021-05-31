@@ -17,6 +17,7 @@ func main() {
 		panic(err)
 	}
 	log.Init(conf.Conf.Log)
+	defer log.Close()
 	serv := service.New(conf.Conf)
 	go func() {
 		http.Init(conf.Conf, serv)
