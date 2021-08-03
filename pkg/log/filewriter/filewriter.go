@@ -14,7 +14,6 @@ import (
 type FileWriter struct {
 	fp    	*os.File
 	ch		chan *bytes.Buffer
-	buf		*bytes.Buffer
 	wg		sync.WaitGroup
 	closed	int32
 }
@@ -41,7 +40,6 @@ func New(fpath string) (f *FileWriter, err error) {
 	f = &FileWriter{
 		fp: fp,
 		ch: make(chan *bytes.Buffer, 1024),
-		buf: new(bytes.Buffer),
 	}
 	f.wg.Add(1)
 	go f.worker()
@@ -56,7 +54,7 @@ func (f *FileWriter) Write(p []byte) (int, error) {
 	if atomic.LoadInt32(&f.closed) == 1 {
 		return 0, fmt.Errorf("日志已关闭")
 	}
-	buf := f.buf
+	buf := &bytes.Buffer{}
 	buf.Write(p)
 	select {
 	case f.ch <- buf:
